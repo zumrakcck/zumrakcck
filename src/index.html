@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pet Care Assistant</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Pet Care Assistant</p>
+        <h1>Evcil hayvan bakımını tek panelden yönetin</h1>
+        <p class="lead">
+          Pet ekleme, hatırlatıcı, günlük aktivite, AI destekli öneri ve premium ödeme akışları
+          use case diyagramıyla uyumlu olarak modellenmiştir.
+        </p>
+      </div>
+      <div class="user-card">
+        <span id="sessionStatus">Misafir kullanıcı</span>
+        <button id="loginButton" type="button">Register / Login</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel hero-panel">
+        <div>
+          <h2>Hızlı Özet</h2>
+          <p>Bakım planı, yaklaşan hatırlatıcılar ve premium durumunu anlık izleyin.</p>
+        </div>
+        <div class="stats">
+          <article>
+            <strong id="petCount">0</strong>
+            <span>Kayıtlı pet</span>
+          </article>
+          <article>
+            <strong id="reminderCount">0</strong>
+            <span>Aktif hatırlatıcı</span>
+          </article>
+          <article>
+            <strong id="premiumStatus">Standart</strong>
+            <span>Üyelik</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <article class="panel">
+          <h2>Add Pet / View Pets</h2>
+          <form id="petForm" class="stack">
+            <label>
+              Pet adı
+              <input id="petName" required placeholder="Pamuk" />
+            </label>
+            <label>
+              Tür
+              <select id="petType">
+                <option>Kedi</option>
+                <option>Köpek</option>
+                <option>Kuş</option>
+                <option>Balık</option>
+                <option>Diğer</option>
+              </select>
+            </label>
+            <label>
+              Yaş
+              <input id="petAge" type="number" min="0" max="40" required placeholder="3" />
+            </label>
+            <label>
+              Not
+              <textarea id="petNotes" rows="3" placeholder="Aşı hassasiyeti, mama tercihi..."></textarea>
+            </label>
+            <button type="submit">Pet Kaydet</button>
+          </form>
+          <div id="petList" class="list"></div>
+        </article>
+
+        <article class="panel">
+          <h2>Add Reminder / View Reminders</h2>
+          <form id="reminderForm" class="stack">
+            <label>
+              Pet
+              <select id="reminderPet"></select>
+            </label>
+            <label>
+              Hatırlatıcı adı
+              <input id="reminderTitle" required placeholder="Aşı zamanı" />
+            </label>
+            <label>
+              Tarih
+              <input id="reminderDate" type="date" required />
+            </label>
+            <label>
+              Kategori
+              <select id="reminderCategory">
+                <option>Aşı</option>
+                <option>Veteriner</option>
+                <option>Mama</option>
+                <option>İlaç</option>
+                <option>Bakım</option>
+              </select>
+            </label>
+            <button type="submit">Hatırlatıcı Ekle</button>
+          </form>
+          <div id="reminderList" class="list"></div>
+        </article>
+      </section>
+
+      <section class="grid two">
+        <article class="panel">
+          <h2>Track Daily Activities</h2>
+          <form id="activityForm" class="inline-form">
+            <select id="activityPet"></select>
+            <input id="activityText" required placeholder="30 dakika yürüyüş" />
+            <button type="submit">Ekle</button>
+          </form>
+          <div id="activityList" class="timeline"></div>
+        </article>
+
+        <article class="panel">
+          <h2>Chat with AI</h2>
+          <div id="chatLog" class="chat-log" aria-live="polite"></div>
+          <form id="chatForm" class="inline-form">
+            <input id="chatMessage" required placeholder="Kedim bugün iştahsız, ne yapmalıyım?" />
+            <button type="submit">Sor</button>
+          </form>
+        </article>
+      </section>
+
+      <section class="grid two">
+        <article class="panel premium">
+          <h2>Activate Premium</h2>
+          <p>
+            Premium üyelik gelişmiş raporlar, veteriner önerisi ve sınırsız AI sohbet hakkı sağlar.
+          </p>
+          <button id="premiumButton" type="button">Ödemeyi İşle</button>
+          <p id="paymentMessage" class="message"></p>
+        </article>
+
+        <article class="panel admin">
+          <h2>Admin Panel</h2>
+          <p>Manage Users, Manage Premium Status ve View Reports use case'lerini temsil eder.</p>
+          <div id="adminReport" class="admin-report"></div>
+        </article>
+      </section>
+    </main>
+
+    <template id="emptyTemplate">
+      <p class="empty">Henüz kayıt yok.</p>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>

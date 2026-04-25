@@ -1,0 +1,14 @@
+Visual Paradigm text export - Sequence Diagram
+
+Register / Login
+validateUser()
+session token
+Add Pet / Reminder
+save care data
+updated dashboard
+Chat with AI
+validateRequest()
+care answer + vet suggestion
+Activate Premium
+processPayment()
+success or payment error
