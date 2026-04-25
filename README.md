@@ -34,5 +34,6 @@ Diyagram JPEG dosyalari, Visual Paradigm kaynak dosyasi yerine teslim klasorune 
 `.vpd` adli metinsel model taslaklari ve sunum dosyasi su komutla tekrar uretilebilir:
 
 ```bash
+python3 -m pip install -r requirements.txt
 python3 tools/generate_assets.py
 ```
