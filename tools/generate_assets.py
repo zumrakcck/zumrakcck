@@ -1,4 +1,5 @@
 from pathlib import Path
+import zipfile
 from PIL import Image, ImageDraw, ImageFont
 from pptx import Presentation
 from pptx.util import Inches, Pt
@@ -9,6 +10,7 @@ from pptx.dml.color import RGBColor
 ROOT = Path(__file__).resolve().parents[1]
 DIAGRAMS = ROOT / "diagrams"
 PRESENTATION = ROOT / "presentation"
+ZIP_TIMESTAMP = (2026, 1, 1, 0, 0, 0)
 
 
 def font(size=20, bold=False):
@@ -369,7 +371,22 @@ def presentation():
         "Her diyagram için JPEG görseli ve VPD kaynak dosyası eklenmiştir.",
         "Prototip tarayıcıda src/index.html açılarak çalıştırılabilir.",
     ])
-    prs.save(PRESENTATION / "Zumra_Cicek_Pet_Care_Assistant.pptx")
+    output = PRESENTATION / "Zumra_Cicek_Pet_Care_Assistant.pptx"
+    prs.save(output)
+    normalize_zip(output)
+
+
+def normalize_zip(path):
+    """Keep generated Office files stable across repeated asset generation."""
+    temp = path.with_suffix(".tmp")
+    with zipfile.ZipFile(path, "r") as source, zipfile.ZipFile(temp, "w", zipfile.ZIP_DEFLATED) as target:
+        for item in source.infolist():
+            data = source.read(item.filename)
+            normalized = zipfile.ZipInfo(item.filename, ZIP_TIMESTAMP)
+            normalized.compress_type = zipfile.ZIP_DEFLATED
+            normalized.external_attr = item.external_attr
+            target.writestr(normalized, data)
+    temp.replace(path)
 
 
 def main():
